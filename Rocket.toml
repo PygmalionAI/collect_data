@@ -1,2 +1,5 @@
 [default]
 port = 8088
+
+[default.limits]
+file = "20 MiB"

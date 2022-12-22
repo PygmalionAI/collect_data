@@ -7,7 +7,11 @@ use rocket::{
     routes,
 };
 use sanitize_filename::sanitize;
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::{
+    fs::{set_permissions, Permissions},
+    os::unix::prelude::PermissionsExt,
+    time::{SystemTime, UNIX_EPOCH},
+};
 
 #[launch]
 fn rocket() -> _ {
@@ -47,6 +51,8 @@ async fn index(mut data: Form<Upload<'_>>) -> Result<Redirect, Redirect> {
 
         if result.is_err() {
             errors.push(i);
+        } else {
+            _ = set_permissions(file.path().unwrap(), Permissions::from_mode(0o644));
         }
     }
     if errors.is_empty() {
