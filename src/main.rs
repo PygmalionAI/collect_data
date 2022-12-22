@@ -38,9 +38,11 @@ async fn index(mut data: Form<Upload<'_>>) -> Result<Redirect, Redirect> {
         let filename = format!("{time}_{}", filename(file, i));
 
         let result = if privacy == Privacy::Public {
-            file.persist_to(format!("uploads/public/{filename}")).await
+            file.move_copy_to(format!("uploads/public/{filename}"))
+                .await
         } else {
-            file.persist_to(format!("uploads/private/{filename}")).await
+            file.move_copy_to(format!("uploads/private/{filename}"))
+                .await
         };
 
         if result.is_err() {
