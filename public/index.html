@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .parent-container {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+      }
+    </style>
+
+    <title>CAI Dump Uploader</title>
+  </head>
+  <body class="parent-container">
+    <main class="m-auto w-100 form-signin" style="max-width: 500px">
+      <h3>CAI Dump Uploader</h3>
+      <p>
+        Please use the form below to contribute your CharacterAI dumps to the
+        project.
+      </p>
+
+      <hr />
+
+      <form method="post" enctype="multipart/form-data">
+        <label for="file-upload-input" class="form-label fw-bold"
+          >Input your JSON files here</label
+        >
+        <input
+          class="form-control mb-3"
+          type="file"
+          id="file-upload-input"
+          name="files"
+          multiple
+        />
+
+        <label class="form-label fw-bold">Data Usage Agreement</label>
+        <div class="form-check mb-1">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="data-usage-agreement-radio"
+            id="data-usage-agreement-keep-private"
+            value="keep-private"
+          />
+          <label
+            class="form-check-label"
+            for="data-usage-agreement-keep-private"
+          >
+            I consent to this data being used for fine-tuning future Pygmalion
+            models, as long as it's kept private.
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="data-usage-agreement-radio"
+            id="data-usage-agreement-can-be-public"
+            value="can-be-public"
+            checked
+          />
+          <label
+            class="form-check-label"
+            for="data-usage-agreement-can-be-public"
+          >
+            I consent to this data being used for fine-tuning future Pygmalion
+            models, AND to having it be included in the public dataset.
+          </label>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">
+          Upload
+        </button>
+      </form>
+
+      <hr />
+
+      <p>
+        <b>Note:</b> Please make sure the files you're uploading have no
+        personal information. We don't want any of that.
+      </p>
+      <p>
+        If your dumps were generated with a version older than v1.2 of the
+        userscript, they may contain your CAI display name. In that case, please
+        update and create new dumps.
+      </p>
+    </main>
+  </body>
+</html>
