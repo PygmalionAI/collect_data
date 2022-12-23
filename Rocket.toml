@@ -3,3 +3,4 @@ port = 8088
 
 [default.limits]
 file = "20 MiB"
+data-form = "100 MiB"
