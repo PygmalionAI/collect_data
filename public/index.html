@@ -50,7 +50,44 @@
           id="file-upload-input"
           name="files"
           multiple
+          required
         />
+
+        <label class="form-label fw-bold">Data Format</label>
+        <div class="form-check mb-1">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="data-format-radio"
+            id="data-format-character-ai"
+            value="character-ai"
+            required
+          />
+          <label
+            class="form-check-label"
+            for="data-format-character-ai"
+          >
+            Character AI
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="data-format-radio"
+            id="data-format-claude"
+            value="claude"
+            required
+            checked
+          />
+          <label
+            class="form-check-label"
+            for="data-format-claude"
+          >
+            Claude
+          </label>
+        </div>
+
 
         <label class="form-label fw-bold">Data Usage Agreement</label>
         <div class="form-check mb-1">
@@ -60,6 +97,7 @@
             name="data-usage-agreement-radio"
             id="data-usage-agreement-keep-private"
             value="keep-private"
+            required
           />
           <label
             class="form-check-label"
@@ -76,6 +114,7 @@
             name="data-usage-agreement-radio"
             id="data-usage-agreement-can-be-public"
             value="can-be-public"
+            required
             checked
           />
           <label

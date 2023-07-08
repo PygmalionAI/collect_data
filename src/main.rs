@@ -31,6 +31,7 @@ async fn index(mut data: Form<Upload<'_>>) -> Result<Redirect, Redirect> {
         .expect("Time traveling not supported")
         .as_millis();
     let privacy = data.privacy.clone();
+    let format = data.format.clone();
     let mut errors = vec![];
 
     for (i, file) in data.files.iter_mut().enumerate() {
@@ -40,14 +41,16 @@ async fn index(mut data: Form<Upload<'_>>) -> Result<Redirect, Redirect> {
         }
 
         let filename = format!("{time}_{}", filename(file, i));
-
-        let result = if privacy == Privacy::Public {
-            file.move_copy_to(format!("uploads/public/{filename}"))
-                .await
-        } else {
-            file.move_copy_to(format!("uploads/private/{filename}"))
-                .await
+        let format = match format {
+            Format::CharacterAI => "cai",
+            Format::Claude => "claude",
         };
+        let privacy = match privacy {
+            Privacy::Private => "private",
+            Privacy::Public => "public",
+        };
+        
+        let result = file.move_copy_to(format!("uploads/{format}/{privacy}/{filename}")).await;
 
         if result.is_err() {
             errors.push(i);
@@ -82,6 +85,8 @@ struct Upload<'r> {
     files: Vec<TempFile<'r>>,
     #[field(name = "data-usage-agreement-radio")]
     privacy: Privacy,
+    #[field(name = "data-format-radio")]
+    format: Format,
 }
 
 #[derive(Clone, PartialEq, FromFormField)]
@@ -90,4 +95,12 @@ enum Privacy {
     Public,
     #[field(value = "keep-private")]
     Private,
+}
+
+#[derive(Clone, PartialEq, FromFormField)]
+enum Format {
+    #[field(value = "character-ai")]
+    CharacterAI,
+    #[field(value = "claude")]
+    Claude,
 }
